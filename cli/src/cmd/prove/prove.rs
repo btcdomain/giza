@@ -6,6 +6,7 @@ use crate::{cmd::ProofData, utils::Cmd};
 use air::ProofOptions;
 use runner::ExecutionTrace;
 use winter_utils::Serializable;
+use crate::utils::get_program_hash;
 
 pub struct ProveOutput {}
 
@@ -18,7 +19,7 @@ impl Cmd for ProveArgs {
     fn run(self) -> Self::Output {
         // Load trace from file
         let trace =
-            ExecutionTrace::from_file(self.program, self.trace, self.memory, self.num_outputs);
+            ExecutionTrace::from_file(self.program, self.trace, self.memory, self.num_outputs, get_program_hash(self.program_hash));
 
         // Generate proof
         let proof_options = ProofOptions::with_proof_options(

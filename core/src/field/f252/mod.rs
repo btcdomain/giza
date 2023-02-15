@@ -11,7 +11,7 @@ use core::{
     },
     slice,
 };
-pub use math::{ExtensibleField, FieldElement, StarkField};
+pub use winter_math::{ExtensibleField, FieldElement, StarkField};
 use winter_utils::{
     collections::Vec, string::String, AsBytes, ByteReader, ByteWriter, Deserializable,
     DeserializationError, Randomizable, Serializable,

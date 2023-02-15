@@ -2,7 +2,7 @@
 
 use giza_core::{
     Builtin, ExtensionOf, Felt, FieldElement, RegisterState, Word, A_RC_PRIME_FIRST,
-    A_RC_PRIME_LAST, MEM_A_TRACE_OFFSET, MEM_P_TRACE_OFFSET, P_M_LAST,
+    A_RC_PRIME_LAST, MEM_A_TRACE_OFFSET, MEM_P_TRACE_OFFSET, P_M_LAST
 };
 use winter_air::{
     Air, AirContext, Assertion, AuxTraceRandElements, ProofOptions as WinterProofOptions,
@@ -189,6 +189,7 @@ pub struct PublicInputs {
     pub mem: (Vec<u64>, Vec<Option<Word>>), // public memory
     pub num_steps: usize, // number of execution steps
     pub builtins: Vec<Builtin>, // list of builtins
+    pub program_hash: Vec<u8>,
 }
 
 impl PublicInputs {
@@ -200,6 +201,7 @@ impl PublicInputs {
         mem: (Vec<u64>, Vec<Option<Word>>),
         num_steps: usize,
         builtins: Vec<Builtin>,
+        program_hash: Vec<u8>,
     ) -> Self {
         Self {
             init,
@@ -209,6 +211,7 @@ impl PublicInputs {
             mem,
             num_steps,
             builtins,
+            program_hash,
         }
     }
 }
@@ -245,6 +248,7 @@ impl Serializable for PublicInputs {
                 target.write_u8(0);
             }
         }
+        target.write_u8_slice(&*self.program_hash);
     }
 }
 
@@ -285,6 +289,7 @@ impl Deserializable for PublicInputs {
             (mem_a, mem_v),
             num_steps as usize,
             builtins,
+            vec![],
         ))
     }
 }

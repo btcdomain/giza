@@ -6,7 +6,7 @@ use giza_core::{
     MEM_A_TRACE_RANGE, MEM_A_TRACE_WIDTH, MEM_V_TRACE_RANGE, OFF_X_TRACE_RANGE, OFF_X_TRACE_WIDTH,
     P_M_WIDTH, P_RC_WIDTH, TRACE_WIDTH, V_M_PRIME_WIDTH,
 };
-use winterfell::{Matrix, Trace, TraceLayout};
+use winter_prover::{Matrix, Trace, TraceLayout};
 
 use indicatif::ParallelProgressIterator;
 use indicatif::ProgressIterator;
@@ -23,6 +23,7 @@ pub struct ExecutionTrace {
     pub rc_max: u16,
     pub num_steps: usize,
     pub builtins: Vec<Builtin>,
+    pub program_hash: Vec<u8>,
 }
 
 /// A virtual column is composed of one or more subcolumns.
@@ -103,6 +104,7 @@ impl ExecutionTrace {
         state: &mut State,
         memory: &Memory,
         builtins: Vec<Builtin>,
+        program_hash: Vec<u8>,
     ) -> Self {
         // Compute the derived ("auxiliary") trace values: t0, t1, and mul.
         // Note that in a conditional jump instruction we substitute res with dst^{-1}
@@ -210,6 +212,7 @@ impl ExecutionTrace {
             rc_max,
             num_steps,
             builtins,
+            program_hash,
         }
     }
 
@@ -219,6 +222,7 @@ impl ExecutionTrace {
         trace_path: PathBuf,
         memory_path: PathBuf,
         output_len: Option<u64>,
+        program_hash: Vec<u8>,
     ) -> ExecutionTrace {
         let mem = read_memory_bin(&memory_path, &program_path);
         let registers = read_trace_bin(&trace_path);
@@ -240,7 +244,7 @@ impl ExecutionTrace {
             state.set_instruction_state(n, inst_state);
         }
 
-        Self::new(num_steps, &mut state, &mem, builtins)
+        Self::new(num_steps, &mut state, &mem, builtins, program_hash)
     }
 
     /// Return the program public memory

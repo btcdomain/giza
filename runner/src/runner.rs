@@ -459,6 +459,8 @@ pub struct Program<'a> {
     /// hints
     #[cfg(feature = "hints")]
     hints: Option<HintManager>,
+
+    program_hash: Vec<u8>,
 }
 
 impl<'a> Program<'a> {
@@ -472,6 +474,7 @@ impl<'a> Program<'a> {
             fin: RegisterState::new(Felt::ZERO, Felt::ZERO, Felt::ZERO),
             builtins: vec![],
             hints,
+            program_hash: vec![],
         }
     }
 
@@ -483,6 +486,7 @@ impl<'a> Program<'a> {
             init: RegisterState::new(Felt::from(pc), Felt::from(ap), Felt::from(ap)),
             fin: RegisterState::new(Felt::ZERO, Felt::ZERO, Felt::ZERO),
             builtins: vec![],
+            program_hash: vec![],
         }
     }
 
@@ -539,6 +543,7 @@ impl<'a> Program<'a> {
             &mut state,
             &self.mem,
             self.builtins.clone(),
+            self.program_hash.clone(),
         ))
     }
 }

@@ -69,6 +69,13 @@ pub struct ProveArgs {
         value_parser(clap::builder::ValueParser::new(parse_fri_max_remainder_size))
     )]
     pub fri_max_remainder_size: Option<usize>,
+
+    #[clap(
+    help = "specific cairo program hash",
+    long,
+    value_hint = ValueHint::CommandString
+    )]
+    pub program_hash: Option<String>,
 }
 
 fn parse_num_queries(value: &str) -> Result<usize, Error> {

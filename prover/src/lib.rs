@@ -1,13 +1,13 @@
 use air::{ProcessorAir, PublicInputs};
 use giza_core::{Felt, RegisterState, MEM_A_TRACE_OFFSET, MEM_P_TRACE_OFFSET};
-use prover::{Prover, Trace};
+use winter_prover::{Prover, Trace};
 use runner::{ExecutionError, ExecutionTrace};
 
 // EXPORTS
 // ================================================================================================
 
 pub use air::{FieldExtension, HashFunction, ProofOptions};
-pub use prover::StarkProof;
+pub use winter_prover::StarkProof;
 
 // EXECUTOR
 // ================================================================================================
@@ -42,7 +42,7 @@ impl Prover for ExecutionProver {
     type Air = ProcessorAir;
     type Trace = ExecutionTrace;
 
-    fn options(&self) -> &prover::ProofOptions {
+    fn options(&self) -> &winter_prover::ProofOptions {
         &self.options
     }
 
@@ -70,6 +70,7 @@ impl Prover for ExecutionProver {
             mem,
             trace.num_steps,
             trace.builtins.clone(),
+            trace.program_hash.clone(),
         )
     }
 }
