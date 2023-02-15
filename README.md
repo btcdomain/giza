@@ -27,3 +27,10 @@ To prove and verify the execution of the program found in `examples/src/main.rs`
 - The Cairo virtual machine and programming language is developed by [Starkware](https://starkware.co/).
 - The STARK prover and verifier is built using the [Winterfell](https://github.com/novifinancial/winterfell) project.
 - The current Rust runner is a fork of the implementation written by Anaïs Querol of O(1) Labs.
+
+
+cmd:
+target/release/giza prove --trace=tests/test1/trace.bin --memory=tests/test1/memory.bin --program=tests/test1/uint256_compiled.json --output=tests/test1/output.bin --num-outputs=2 --program-hash=02d4d009f837bfebbeb6e1fed2aadd336973e85971e574816791ca617faedd65
+target/release/giza verify --proof=tests/test1/output.bin   ---failed
+target/release/giza verify --proof=tests/test1/output.bin --program-hash=02d4d009f837bfebbeb6e1fed2aadd336973e85971e574816791ca617faedd65   ---success
+
