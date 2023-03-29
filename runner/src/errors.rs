@@ -1,4 +1,4 @@
-use winter_prover::ProverError;
+use winterfell::ProverError;
 
 #[derive(Debug)]
 pub enum ExecutionError {

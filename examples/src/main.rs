@@ -54,7 +54,7 @@ fn main() {
     println!("Proof size: {:.1} KB", proof_bytes.len() as f64 / 1024f64);
 
     // verify correct program execution
-    match winter_verifier::verify::<ProcessorAir>(proof, pub_inputs) {
+    match winterfell::verify::<ProcessorAir>(proof, pub_inputs) {
         Ok(_) => println!("Execution verified"),
         Err(err) => println!("Failed to verify execution: {}", err),
     }

@@ -1,7 +1,7 @@
 use air::{ProcessorAir, PublicInputs};
 use serde::{Deserialize, Serialize};
 use winter_utils::{Deserializable, SliceReader};
-use winter_verifier::StarkProof;
+use winterfell::StarkProof;
 
 use js_sys::Uint8Array;
 use wasm_bindgen::prelude::*;
@@ -21,7 +21,7 @@ pub fn verify(buffer: &Uint8Array) {
     let proof = StarkProof::from_bytes(&data.proof_bytes).unwrap();
 
     // Verify execution
-    match winter_verifier::verify::<ProcessorAir>(proof, pub_inputs) {
+    match winterfell::verify::<ProcessorAir>(proof, pub_inputs) {
         Ok(_) => log("Execution verified"),
         Err(err) => log(format!("Failed to verify execution: {}", err).as_str()),
     }

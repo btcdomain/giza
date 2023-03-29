@@ -6,7 +6,7 @@ use giza_core::{
     MEM_A_TRACE_RANGE, MEM_A_TRACE_WIDTH, MEM_V_TRACE_RANGE, OFF_X_TRACE_RANGE, OFF_X_TRACE_WIDTH,
     P_M_WIDTH, P_RC_WIDTH, TRACE_WIDTH, V_M_PRIME_WIDTH,
 };
-use winter_prover::{Matrix, Trace, TraceLayout};
+use winterfell::{Matrix, Trace, TraceLayout};
 
 use indicatif::ParallelProgressIterator;
 use indicatif::ProgressIterator;

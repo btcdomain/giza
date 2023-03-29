@@ -7,7 +7,7 @@ use crate::utils::{Cmd, get_program_hash};
 use air::{ProcessorAir, PublicInputs};
 use clap::{Parser, ValueHint};
 use winter_utils::{Deserializable, SliceReader};
-use winter_verifier::StarkProof;
+use winterfell::StarkProof;
 
 pub struct VerifyOutput {}
 
@@ -47,7 +47,7 @@ impl Cmd for VerifyArgs {
         let proof = StarkProof::from_bytes(&data.proof_bytes).unwrap();
 
         // Verify execution
-        match winter_verifier::verify::<ProcessorAir>(proof, pub_inputs) {
+        match winterfell::verify::<ProcessorAir>(proof, pub_inputs) {
             Ok(_) => println!("Execution verified"),
             Err(err) => println!("Failed to verify execution: {}", err),
         }

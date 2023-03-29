@@ -2,7 +2,7 @@
 
 pub use core::ops::Range;
 
-pub use winter_math::{ExtensionOf, FieldElement, StarkField};
+pub use math::{ExtensionOf, FieldElement, StarkField};
 
 pub mod word;
 pub use word::{
